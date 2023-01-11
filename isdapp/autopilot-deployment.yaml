@@ -79,6 +79,15 @@ spec:
             - mountPath: /opsmx/conf/standard-error-code.csv
               name: standard-error-conf
               subPath: standard-error-codes.csv
+            - mountPath: /opsmx/conf/controller/ca.crt
+              name: ca-certs-volume
+              subPath: tls.crt
+            - mountPath: /opsmx/conf/controller/tls.crt
+              name: certs-volume
+              subPath: tls.crt
+            - mountPath: /opsmx/conf/controller/tls.key
+              name: certs-volume
+              subPath: tls.key
       dnsPolicy: ClusterFirst
       imagePullSecrets:
         - name: opsmx11-secret
@@ -116,3 +125,11 @@ spec:
                 path: standard-error-codes.csv
             name: standard-error-codes-config
           name: standard-error-conf
+        - name: certs-volume
+          secret:
+            defaultMode: 420
+            secretName: oes-control-secret
+        - name: ca-certs-volume
+          secret:
+            defaultMode: 420
+            secretName: ca-secret
